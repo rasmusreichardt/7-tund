@@ -11,9 +11,8 @@
     
     //Kasutaja muudab andmeid
     if(isset($_GET["update"])){
-		//auto id, auto number, auto värv
-		updateCarData($_GET["car_id"], $_GET["number_plate"], $_GET["color"]);
-        
+        //auto id, auto number, auto värv
+        updateCarData($_GET["car_id"], $_GET["number_plate"], $_GET["color"]);
     }
     
     
