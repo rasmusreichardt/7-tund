@@ -1,7 +1,7 @@
 <?php
 
     require_once("../config_global.php");
-    $database = "if15_romil_1";
+    $database = "if15_rasmrei";
 
     function getAllData(){
           
