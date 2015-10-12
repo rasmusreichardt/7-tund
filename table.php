@@ -17,17 +17,37 @@
     
     
     
-    // kõik autod objektide kujul massiivis
-    $car_array = getAllData();
+    $keyword = "";
+    if(isset($_GET["keyword"])){
+        $keyword = $_GET["keyword"];
+        
+        // otsime 
+        $car_array = getAllData($keyword);
+        
+        
+    }else{
+        // näitame kõiki tulemusi
+        // kõik autod objektide kujul massiivis
+        $car_array = getAllData();
+        
+    }
+    
 ?>
 
 <h1>Tabel</h1>
+
+<form action="table.php" method="get">
+    <input name="keyword" type="search" value="<?=$keyword?>" >
+    <input type="submit" value="otsi">
+<form>
+<br><br>
 <table border=1>
 <tr>
     <th>id</th>
     <th>kasutaja id</th>
     <th>auto numbrimärk</th>
     <th>värv</th>
+    <th></th>
     <th></th>
     <th></th>
 </tr>
@@ -59,6 +79,7 @@
             echo "<td>".$car_array[$i]->color."</td>";
             echo "<td><a href='?delete=".$car_array[$i]->id."'>X</a></td>";
             echo "<td><a href='?edit=".$car_array[$i]->id."'>edit</a></td>";
+            echo "<td><a href='edit.php?edit_id=".$car_array[$i]->id."'>edit.php</a></td>";
             echo "</tr>";
             
         }

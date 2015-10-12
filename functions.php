@@ -3,11 +3,22 @@
     require_once("../config_global.php");
     $database = "if15_rasmrei";
 
-    function getAllData(){
+    // vaikeväärtus sulgudes, et vältida errorit, mis 
+    // tekiks real ~31 table.php
+    function getAllData($keyword=""){
+        
+        if($keyword == ""){
+            //ei otsi
+            $search = "%%";
+        }else{
+            //otsime
+            $search = "%".$keyword."%";
+        }
           
         $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
         // deleted IS NULL - ei ole kustutatud
-        $stmt = $mysqli->prepare("SELECT id, user_id, number_plate, color FROM car_plates WHERE deleted IS NULL");
+        $stmt = $mysqli->prepare("SELECT id, user_id, number_plate, color FROM car_plates WHERE deleted IS NULL AND (number_plate LIKE ? OR color like ?)");
+        $stmt->bind_param("ss", $search, $search);
         $stmt->bind_result($id_from_db, $user_id_from_db, $number_plate_from_db, $color_from_db);
         $stmt->execute();
 
